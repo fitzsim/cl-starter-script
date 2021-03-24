@@ -14,7 +14,7 @@ Features:
 
 * Loadable in a REPL.
 
-* SBCL support, so far.
+* SBCL and CLISP* support, so far.
 
 * Self-contained within the checkout directory.
 
@@ -31,3 +31,14 @@ instead.
 
 Also check out [cl-launch](https://github.com/fare/cl-launch) which
 unfortunately is not widely packaged by distros.
+
+*A working CLISP can be built something like this on Debian:
+
+	sudo apt install libffcall-dev
+	git clone https://gitlab.com/gnu-clisp/clisp
+	cd clisp
+	git checkout -b ffcall d9cbf22d18680f9b9c84579be6bc363e4bd1090c
+	git am ../cl-starter-script/patch/0001-Fix-ffcall-linkages-on-Debian.patch
+	./configure --prefix=/usr --with-threads=POSIX_THREADS --with-module=asdf
+	make
+	sudo make install

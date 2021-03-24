@@ -1,6 +1,7 @@
 #| start.lisp --- a single-file self-contained Common Lisp script template
 export __CL_ARGV0="$0"
-exec sbcl --script "$0" "$@"
+type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
+type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
 
 Copyright (C) 2021 Thomas Fitzsimmons
 
@@ -16,6 +17,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 |#
+
+#+clisp (setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; for :here
 
 (cl:require "asdf")
 (asdf:initialize-source-registry
