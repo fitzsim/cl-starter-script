@@ -4,3 +4,6 @@
 [submodule "clon"]
 	path = clon
 	url = https://github.com/didierverna/clon
+[submodule "trivial-features"]
+	path = trivial-features
+	url = https://github.com/trivial-features/trivial-features.git
