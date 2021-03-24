@@ -13,3 +13,6 @@
 [submodule "alexandria"]
 	path = alexandria
 	url = https://gitlab.common-lisp.net/alexandria/alexandria.git
+[submodule "cffi"]
+	path = cffi
+	url = https://github.com/cffi/cffi.git
