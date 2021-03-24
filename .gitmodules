@@ -10,3 +10,6 @@
 [submodule "babel"]
 	path = babel
 	url = https://github.com/cl-babel/babel.git
+[submodule "alexandria"]
+	path = alexandria
+	url = https://gitlab.common-lisp.net/alexandria/alexandria.git
