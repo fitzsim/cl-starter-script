@@ -7,3 +7,6 @@
 [submodule "trivial-features"]
 	path = trivial-features
 	url = https://github.com/trivial-features/trivial-features.git
+[submodule "babel"]
+	path = babel
+	url = https://github.com/cl-babel/babel.git
