@@ -1,0 +1,3 @@
+[submodule "named-readtables"]
+	path = named-readtables
+	url = https://github.com/melisgl/named-readtables
