@@ -16,3 +16,6 @@
 [submodule "cffi"]
 	path = cffi
 	url = https://github.com/cffi/cffi.git
+[submodule "with-user-abort"]
+	path = with-user-abort
+	url = https://github.com/compufox/with-user-abort.git
