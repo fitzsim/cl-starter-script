@@ -8,7 +8,9 @@
 
 Features:
 
-* Starting point for a small Common Lisp utility script.
+* Template for a small Common Lisp utility script.
+
+* Meant to be renamed and hacked up.
 
 * Runnable from the command line.
 
