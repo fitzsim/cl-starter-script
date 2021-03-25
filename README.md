@@ -1,8 +1,8 @@
-	   sudo apt install sbcl \
-	|| sudo dnf install sbcl \
-	|| sudo yum install sbcl \
-	&& git clone --recursive https://git.sr.ht/~fitzsim/cl-starter-script \
-	&& ./cl-starter-script/start.lisp --help
+	sudo apt install sbcl || \
+	sudo dnf install sbcl || \
+	sudo yum install sbcl && \
+	git clone --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
+	./cl-starter-script/start.lisp --help
 
 # It's a start...
 
