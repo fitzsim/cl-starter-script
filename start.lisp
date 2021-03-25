@@ -47,7 +47,7 @@ limitations under the License.
 
 (cl:defun main ()
   "Entry point for the script."
-  (clon:make-context)
+  (clon:make-context :progname :environment)
   (cl:cond ((clon:getopt :short-name "h")
 	    (clon:help))
 	   ((cl:not (clon:getopt :short-name "q"))
