@@ -22,34 +22,31 @@ SPDX-License-Identifier: Apache-2.0 |#
   (asdf:load-system :net.didierverna.clon)) ; FIXME: clisp cc stderr
 (net.didierverna.clon:nickname-package)
 (asdf:load-system :with-user-abort)
-
+;;; Actual script follows.
 (cl:defpackage #:start)
 (cl:in-package #:start)
 (clon:defsynopsis (:postfix "FILES...")
-  (text :contents "Starter utility script.")
+  (text :contents "Template utility script.")
   (group (:header "Flags:")
 	 (flag :short-name "h" :long-name "help"
-	       :description "Print this help and exit.")
-	 (flag :short-name "q" :long-name "quiet"
-	       :description "Print fewer messages."))
+	       :description "display this help text and exit")
+	 (flag :short-name "e" :long-name "example"
+	       :description "an example flag option"))
   (group (:header "Options:")
 	 (path :short-name "f" :long-name "file"
-	       :description "Output to FILE."
-	       :argument-name "FILE"
-	       :type :file
-	       :default-value #p"output.txt")))
-
+	       :description "an example FILE option"
+	       :argument-name "FILE" :type :file :default-value #p"file.txt")))
 (cl:defun main ()
   "Entry point for the script."
   (clon:make-context :progname :environment)
   (cl:cond ((clon:getopt :short-name "h")
 	    (clon:help))
-	   ((cl:not (clon:getopt :short-name "q"))
+	   (cl:t
 	    (cl:format cl:t "Script full path:  ~A~%" cl:*load-pathname*)
 	    (cl:format cl:t "Script argument 0: ~A~%" (uiop:argv0))
 	    (cl:format cl:t "ASDF version:      ~A~%" (asdf:asdf-version))
 	    (cl:format cl:t "Program name:      ~A~%" (clon:progname))
-	    (cl:format cl:t "Options:")
+	    (cl:format cl:t "Command line options:")
 	    (clon:do-cmdline-options (option name value source)
 	      (cl:print (cl:list option name value source)))
 	    (cl:terpri)
