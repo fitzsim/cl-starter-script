@@ -41,6 +41,7 @@ limitations under the License.
 (cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
 	 #+clisp (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
   (asdf:load-system :net.didierverna.clon))
+(asdf:load-system :with-user-abort)
 
 (cl:defpackage #:start)
 (cl:in-package #:start)
@@ -80,4 +81,7 @@ limitations under the License.
     (uiop:quit)))
 
 (cl:when (uiop:argv0)
-  (main))
+  (cl:handler-case
+      (with-user-abort:with-user-abort (main))
+    (with-user-abort:user-abort ()
+      (uiop:quit 1))))
