@@ -22,6 +22,9 @@ limitations under the License.
 ;; within the :common-lisp-user package.
 (cl:in-package #:cl-user)
 
+(cl:setf cl:*compile-verbose* cl:nil) ; output to *error-output* instead?
+(cl:setf cl:*compile-print* cl:nil)
+
 #+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
 
 (cl:require "asdf")
