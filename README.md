@@ -10,7 +10,7 @@
 If pasting that doesn't work, complain by filing a
 [todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
 
-If SBCL installation and the Git clone succeed, you should see:
+If the SBCL installation and Git clone succeed, you should see:
 
 	Compiling, please wait up to 30 seconds...
 	Usage: start [-he] [OPTIONS] FILES...
