@@ -30,7 +30,8 @@ limitations under the License.
 (cl:require "asdf")
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
-(cl:let ((cl:*error-output* (cl:make-string-output-stream))) ; version parsing
+(cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
+	 #+clisp (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
   (asdf:load-system :net.didierverna.clon))
 
 (cl:defpackage #:start)
