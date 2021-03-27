@@ -19,7 +19,8 @@ SPDX-License-Identifier: Apache-2.0 |#
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
 (cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
 	 (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
-  (asdf:load-system :net.didierverna.clon)) ; FIXME: clisp cc stderr
+  (cl:ignore-errors ; if missing cc
+   (asdf:load-system :net.didierverna.clon))) ; FIXME: clisp cc stderr
 (net.didierverna.clon:nickname-package)
 (asdf:load-system :with-user-abort)
 ;;; Actual script follows.
