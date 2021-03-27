@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 |#
 
-#+clisp (setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; for :here
+#+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
 
 (cl:require "asdf")
 (asdf:initialize-source-registry
