@@ -1,9 +1,6 @@
-	sudo apt    install sbcl || \
-	sudo dnf    install sbcl || \
-	sudo yum    install sbcl || \
-	     guix   install sbcl || \
-	sudo pacman -S      sbcl || \
-	     emerge         sbcl && \
+Install SBCL or GNU CLISP for your distribution, e.g., run `apt
+install sbcl` or `dnf install sbcl` as root.
+
 	git clone --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
 	./cl-starter-script/start.lisp --help
 
@@ -35,7 +32,7 @@ Features:
 
 * Loadable in a REPL.
 
-* SBCL and CLISP support, so far.
+* SBCL and GNU CLISP support, so far.
 
 * Self-contained within the checkout directory.
 
