@@ -1,13 +1,14 @@
-Install SBCL or GNU CLISP for your distribution, e.g., run `apt
-install sbcl` or `dnf install sbcl` as root.
+This is a small Common Lisp script that can be used as a template.
+
+To try it, first install SBCL or GNU CLISP for your distribution,
+e.g., run `apt install sbcl` or `dnf install sbcl` as root.
+
+Then, as a normal user, run:
 
 	git clone --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
 	./cl-starter-script/start.lisp --help
 
-If pasting that doesn't work, complain by filing a
-[todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
-
-If the SBCL installation and Git clone succeed, you should see:
+After the Git clone finishes, you should see:
 
 	Compiling, please wait up to 30 seconds...
 	Usage: start [-he] [OPTIONS] FILES...
@@ -19,6 +20,9 @@ If the SBCL installation and Git clone succeed, you should see:
 	Options:
 	  -f, --file=FILE             an example FILE option
 	                              Default: file.txt
+
+If that doesn't work, complain by filing a
+[todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
 
 # It's a start...
 
