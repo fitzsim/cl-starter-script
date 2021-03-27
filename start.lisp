@@ -82,6 +82,7 @@ limitations under the License.
 
 (cl:when (uiop:argv0)
   (cl:handler-case
-      (with-user-abort:with-user-abort (main))
+      (with-user-abort:with-user-abort
+	  (main))
     (with-user-abort:user-abort ()
       (uiop:quit 1))))
