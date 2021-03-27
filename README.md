@@ -10,6 +10,19 @@
 If pasting that doesn't work, complain by filing a
 [todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
 
+At the end, you should see:
+
+	Compiling, should take less than 30 seconds...
+	Usage: start [-hq] [OPTIONS] FILES...
+
+	Starter utility script.
+	Flags:
+	  -h, --help                  Print this help and exit.
+	  -q, --quiet                 Print fewer messages.
+	Options:
+	  -f, --file=FILE             Output to FILE.
+	                              Default: output.txt
+
 # It's a start...
 
 Features:
