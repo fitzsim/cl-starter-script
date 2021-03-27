@@ -27,7 +27,7 @@ limitations under the License.
 
 #+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
 
-(cl:require "asdf")
+(cl:require "asdf") ; also loads uiop package
 (cl:unless (uiop:directory-exists-p
 	    (cl:merge-pathnames
 	     (uiop:relativize-pathname-directory
