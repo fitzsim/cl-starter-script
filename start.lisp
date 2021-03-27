@@ -20,13 +20,11 @@ SPDX-License-Identifier: Apache-2.0 |#
 (cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
 	 (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
   (asdf:load-system :net.didierverna.clon)) ; FIXME: clisp cc stderr
+(net.didierverna.clon:nickname-package)
 (asdf:load-system :with-user-abort)
 
 (cl:defpackage #:start)
 (cl:in-package #:start)
-
-(net.didierverna.clon:nickname-package)
-
 (clon:defsynopsis (:postfix "FILES...")
   (text :contents "Starter utility script.")
   (group (:header "Flags:")
