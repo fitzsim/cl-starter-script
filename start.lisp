@@ -28,6 +28,14 @@ limitations under the License.
 #+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
 
 (cl:require "asdf")
+(cl:unless (uiop:directory-exists-p
+	    (cl:merge-pathnames
+	     (uiop:relativize-pathname-directory
+	      (uiop:pathname-directory-pathname
+	       cl:*load-pathname*))
+	     asdf:*user-cache*))
+  (cl:format cl:*error-output*
+	     "Compiling, should take less than 30 seconds...~%"))
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
 (cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
