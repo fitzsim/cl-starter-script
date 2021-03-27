@@ -18,6 +18,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 |#
 
+;; Many ASDF systems assume that asdf:load-system is called from
+;; within the :common-lisp-user package.
+(cl:in-package #:cl-user)
+
 #+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
 
 (cl:require "asdf")
