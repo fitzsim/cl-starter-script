@@ -55,3 +55,19 @@ unfortunately is not widely packaged by distros.
 Also look at [Roswell](https://github.com/roswell/roswell) as another
 potential basis for Common Lisp scripting, and lots more.
 
+# Learning resources
+
+A great introduction to Common Lisp; explains ASDF and Quicklisp
+better than anything else I've read:
+
+[A Road to Common Lisp](https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/)
+
+This PDF fosters a practical understanding of Common Lisp packges.  I
+haven't found it available as a web page:
+
+[The Complete Idiot’s Guide to Common LispPackages](http://index-of.es/Programming/Lisp/Lisp%20Mess/Erann%20Gat%20-%20Idiots%20Guide%20To%20Lisp%20Packages.pdf))
+
+Refer to this page to set up a Common Lisp environment on a new
+machine:
+
+[lisp-lang.org Getting Started](https://lisp-lang.org/learn/getting-started/)
