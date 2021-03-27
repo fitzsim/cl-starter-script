@@ -45,8 +45,7 @@ Features:
   [CLON](https://github.com/didierverna/clon).
 
 * Experiment with no :use at all, not even :common-lisp.  Interesting,
-  but in practice :use :cl and remove cl: prefixes.  See `short`
-  branch.
+  but in practice :use :cl and remove cl: prefixes.
 
 # Alternatives
 
