@@ -47,8 +47,11 @@ Features:
 * Experiment with no :use at all, not even :common-lisp.  Interesting,
   but in practice :use :cl and remove cl: prefixes.
 
-You should probably use [Roswell](https://github.com/roswell/roswell)
-instead.
+# Alternatives
 
-Also check out [cl-launch](https://github.com/fare/cl-launch) which
+Check out [cl-launch](https://github.com/fare/cl-launch) which
 unfortunately is not widely packaged by distros.
+
+Also look at [Roswell](https://github.com/roswell/roswell) as another
+potential basis for Common Lisp scripting, and lots more.
+
