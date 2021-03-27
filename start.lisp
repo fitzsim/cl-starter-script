@@ -51,12 +51,9 @@ SPDX-License-Identifier: Apache-2.0 |#
 	      (cl:print (cl:list option name value source)))
 	    (cl:terpri)
 	    (cl:format cl:t "Remainder:         ~A~%" (clon:remainder))))
-  (cl:when (uiop:argv0)
-    (uiop:quit)))
-
+  (cl:when (uiop:argv0) (uiop:quit)))
 (cl:when (uiop:argv0)
   (cl:handler-case
       (with-user-abort:with-user-abort
-	  (main))
-    (with-user-abort:user-abort ()
-      (uiop:quit 1))))
+	(main))
+    (with-user-abort:user-abort () (uiop:quit 1))))
