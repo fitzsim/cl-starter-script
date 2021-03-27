@@ -4,29 +4,22 @@ type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
 type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
 Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
-;; Many ASDF systems assume that asdf:load-system is called from
-;; within the :common-lisp-user package.
-(cl:in-package #:cl-user)
-
-(cl:setf cl:*compile-verbose* cl:nil) ; output to *error-output* instead?
-(cl:setf cl:*compile-print* cl:nil)
-
-#+clisp (cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; :here
-
+;;; Load dependee systems.
+(cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
+(cl:setf cl:*compile-verbose* cl:nil cl:*compile-print* cl:nil)
+(cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; for :here
 (cl:require "asdf") ; also loads uiop package
-(cl:unless (uiop:directory-exists-p
-	    (cl:merge-pathnames
-	     (uiop:relativize-pathname-directory
-	      (uiop:pathname-directory-pathname
-	       cl:*load-pathname*))
-	     asdf:*user-cache*))
-  (cl:format cl:*error-output*
-	     "Compiling, should take less than 30 seconds...~%"))
+(cl:unless (uiop:directory-exists-p (cl:merge-pathnames
+				     (uiop:relativize-pathname-directory
+				      (uiop:pathname-directory-pathname
+				       cl:*load-pathname*))
+				     asdf:*user-cache*))
+  (cl:format cl:*error-output* "Compiling, please wait up to 30 seconds...~%"))
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
 (cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
-	 #+clisp (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
-  (asdf:load-system :net.didierverna.clon))
+	 (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
+  (asdf:load-system :net.didierverna.clon)) ; FIXME: clisp cc stderr
 (asdf:load-system :with-user-abort)
 
 (cl:defpackage #:start)
