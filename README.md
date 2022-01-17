@@ -66,7 +66,7 @@ better than anything else I've read:
 This PDF fosters a practical understanding of Common Lisp packges.  I
 haven't found it available as a web page:
 
-[The Complete Idiot’s Guide to Common LispPackages](http://index-of.es/Programming/Lisp/Lisp%20Mess/Erann%20Gat%20-%20Idiots%20Guide%20To%20Lisp%20Packages.pdf))
+[The Complete Idiot’s Guide to Common LispPackages](http://index-of.es/Programming/Lisp/Lisp%20Mess/Erann%20Gat%20-%20Idiots%20Guide%20To%20Lisp%20Packages.pdf)
 
 Refer to this page to set up a Common Lisp environment on a new
 machine:
