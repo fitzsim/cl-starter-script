@@ -6,26 +6,26 @@ Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 ;;; Load dependee systems.
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
-(cl:setf cl:*compile-verbose* cl:nil cl:*compile-print* cl:nil)
-(cl:setf cl:*load-pathname* (cl:truename cl:*load-pathname*)) ; for :here
-(cl:require "asdf") ; also loads uiop package
-(cl:unless (uiop:directory-exists-p (cl:merge-pathnames
-				     (uiop:relativize-pathname-directory
-				      (uiop:pathname-directory-pathname
-				       cl:*load-pathname*))
-				     asdf:*user-cache*))
-  (cl:format cl:*error-output* "Compiling, please wait up to 30 seconds...~%"))
+(setf *compile-verbose* nil *compile-print* nil)
+(setf *load-pathname* (truename *load-pathname*)) ; for :here
+(require "asdf") ; also loads uiop package
+(unless (uiop:directory-exists-p (merge-pathnames
+				  (uiop:relativize-pathname-directory
+				   (uiop:pathname-directory-pathname
+				    *load-pathname*))
+				  asdf:*user-cache*))
+  (format *error-output* "Compiling, please wait up to 30 seconds...~%"))
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
-(cl:let ((cl:*error-output* (cl:make-string-output-stream)) ; version parsing
-	 (cl:*debug-io* (cl:make-string-output-stream))) ; grovel cc
-  (cl:ignore-errors ; if missing cc
+(let ((*error-output* (make-string-output-stream)) ; version parsing
+      (*debug-io* (make-string-output-stream))) ; grovel cc
+  (ignore-errors ; if missing cc
    (asdf:load-system :net.didierverna.clon))) ; FIXME: clisp cc stderr
 (net.didierverna.clon:nickname-package)
 (asdf:load-system :with-user-abort)
 ;;; Actual script follows.
-(cl:defpackage #:start)
-(cl:in-package #:start)
+(defpackage #:start)
+(in-package #:start)
 (clon:defsynopsis (:postfix "FILES...")
   (text :contents "Template utility script.")
   (group (:header "Flags:")
