@@ -5,7 +5,7 @@ e.g., run `apt install sbcl` or `dnf install sbcl` as root.
 
 Then, as a normal user, run:
 
-	git clone --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
+	git clone -q --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
 	./cl-starter-script/start.lisp --help
 
 After the Git clone finishes, you should see:
