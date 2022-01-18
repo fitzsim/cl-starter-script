@@ -7,7 +7,7 @@ Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 ;;; Load dependee systems.
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
-(setf *compile-verbose* nil *compile-print* nil)
+(setf *compile-verbose* nil *compile-print* nil *load-verbose* nil)
 (setf *load-pathname* (truename *load-pathname*)) ; for :here
 (require "asdf") ; also loads uiop package
 (unless (uiop:directory-exists-p (merge-pathnames
