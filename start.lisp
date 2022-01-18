@@ -43,15 +43,19 @@ SPDX-License-Identifier: Apache-2.0 |#
   (cl:cond ((clon:getopt :short-name "h")
 	    (clon:help))
 	   (cl:t
-	    (cl:format cl:t "Script full path:  ~A~%" cl:*load-pathname*)
-	    (cl:format cl:t "Script argument 0: ~A~%" (uiop:argv0))
-	    (cl:format cl:t "ASDF version:      ~A~%" (asdf:asdf-version))
-	    (cl:format cl:t "Program name:      ~A~%" (clon:progname))
+	    (cl:format cl:t "Script full path:     ~A~%" cl:*load-pathname*)
+	    (cl:format cl:t "Script argument 0:    ~A~%" (uiop:argv0))
+	    (cl:format cl:t "ASDF version:         ~A~%" (asdf:asdf-version))
+	    (cl:format cl:t "Program name:         ~A~%" (clon:progname))
 	    (cl:format cl:t "Command line options:")
 	    (clon:do-cmdline-options (option name value source)
 	      (cl:print (cl:list option name value source)))
 	    (cl:terpri)
-	    (cl:format cl:t "Remainder:         ~A~%" (clon:remainder))))
+	    (cl:format cl:t "Remainder:            ~A~%" (clon:remainder))
+	    (cl:format cl:t "Lisp implementation:  ~A~%"
+		       (cl:lisp-implementation-type))
+	    (cl:format cl:t "Lisp version:         ~A~%"
+		       (cl:lisp-implementation-version))))
   (cl:when (uiop:argv0) (uiop:quit)))
 (cl:when (uiop:argv0)
   (cl:handler-case
