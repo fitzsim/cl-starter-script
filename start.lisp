@@ -18,6 +18,25 @@ SPDX-License-Identifier: Apache-2.0 |#
   (format *error-output* "Compiling, please wait up to 30 seconds...~%"))
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
+#| On GNU CLISP, suppress C compiler warning output during CLON load.
+The combination of CLISP and ASDF provide no global way of disabling
+the stream associated with this output.  To test, remove the ASDF
+cache at ~/.cache/common-lisp/clisp-* then run:
+"clisp -q -q -i start.lisp -x '(start::main)'". |#
+#+clisp
+(uiop:with-null-output (*error-output*)
+  (asdf:load-system :cffi-toolchain))
+#+clisp
+(uiop:with-null-output (*error-output*)
+  (defun cffi-toolchain:invoke (command &rest args)
+    (when (pathnamep command)
+      (setf command (native-namestring command))
+      #+os-unix
+      (unless (absolute-pathname-p command)
+	(setf command (strcat "./" command))))
+    (let ((cmd (cons command (mapcar 'program-argument args))))
+      (safe-format! *debug-io* "; ~A~%" (escape-command cmd))
+      (run-program cmd :output :interactive)))) ; no :error-output :interactive
 (uiop:with-null-output (*debug-io*) ; silence cffi-toolchain:invoke
   (uiop:with-null-output (*terminal-io*) ; silence clisp
     (uiop:with-null-output (*error-output*) ; silence ecl
