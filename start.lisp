@@ -18,10 +18,11 @@ SPDX-License-Identifier: Apache-2.0 |#
   (format *error-output* "Compiling, please wait up to 30 seconds...~%"))
 (asdf:initialize-source-registry
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
-(let ((*error-output* (make-string-output-stream)) ; version parsing
-      (*debug-io* (make-string-output-stream))) ; grovel cc
-  (ignore-errors ; if missing cc
-   (asdf:load-system :net.didierverna.clon))) ; FIXME: clisp cc stderr
+(uiop:with-null-output (*debug-io*) ; silence cffi-toolchain:invoke
+  (uiop:with-null-output (*terminal-io*) ; silence clisp
+    (uiop:with-null-output (*error-output*) ; silence ecl
+      (ignore-errors ; if missing cc
+       (asdf:load-system :net.didierverna.clon))))) ; FIXME: clisp cc stderr
 (net.didierverna.clon:nickname-package)
 (asdf:load-system :with-user-abort)
 ;;; Actual script follows.
