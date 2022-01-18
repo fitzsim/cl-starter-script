@@ -1,7 +1,8 @@
 This is a small Common Lisp script that can be used as a template.
 
-To try it, first install SBCL or GNU CLISP for your distribution,
-e.g., run `apt install sbcl` or `dnf install sbcl` as root.
+To try it, first install SBCL, GNU CLISP, or ECL for your
+distribution, e.g., run `apt install sbcl` or `dnf install sbcl` as
+root.
 
 Then, as a normal user, run:
 
