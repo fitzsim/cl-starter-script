@@ -1,7 +1,8 @@
 #| start.lisp --- a single-file self-contained Common Lisp script template
 export __CL_ARGV0="$0"
-type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
-type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
+type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0"    "$@"
+type clisp >/dev/null 2>&1 && exec clisp          "$0"    "$@"
+type ecl   >/dev/null 2>&1 && exec ecl   --shell  "$0" -- "$@"
 Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 ;;; Load dependee systems.

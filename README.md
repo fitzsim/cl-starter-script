@@ -73,6 +73,12 @@ from first removing the implementation's ASDF cache, for example,
     <td>10.680</td>
     <td>4.150</td>
   </tr>
+  <tr>
+    <td>ECL</td>
+    <td>21.2.1</td>
+    <td>23.219</td>
+    <td>3.042</td>
+  </tr>
 </table>
 
 # Alternatives
