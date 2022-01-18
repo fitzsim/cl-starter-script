@@ -48,6 +48,33 @@ Features:
 * Experiment with no :use at all, not even :common-lisp.  Interesting,
   but in practice :use :cl and remove cl: prefixes.
 
+# Supported Lisp Implementations as of January 2022
+
+These are tried in order, from fastest to slowest.  A cold run results
+from first removing the implementation's ASDF cache, for example,
+~/.cache/common-lisp/clisp-[...].
+
+<table>
+  <tr>
+    <th style="text-align:left;">Implementation</th>
+    <th style="text-align:left;">Version</th>
+    <th style="text-align:left;">Cold Run (seconds)</th>
+    <th style="text-align:left;">Warm Run (seconds)</th>
+  </tr>
+  <tr>
+    <td>SBCL</td>
+    <td>2.1.9.debian</td>
+    <td>2.857</td>
+    <td>0.862</td>
+  </tr>
+  <tr>
+    <td>GNU CLISP</td>
+    <td>2.49.93+ (2018-02-18)</td>
+    <td>10.680</td>
+    <td>4.150</td>
+  </tr>
+</table>
+
 # Alternatives
 
 Check out [cl-launch](https://github.com/fare/cl-launch) which
