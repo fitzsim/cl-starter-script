@@ -21,8 +21,7 @@ SPDX-License-Identifier: Apache-2.0 |#
    :arg-parser #'cl:parse-integer :meta-var "LEVEL")
   (:name :output :description "output to FILE"       :short #\o :long "output"
    :arg-parser #'cl:identity :meta-var "FILE"))
-(cl:defun main ()
-  "Entry point for the script."
+(cl:defun main () "Entry point for the script."
   (cl:multiple-value-bind (options arguments)
       (opts:get-opts)
     (cl:cond
