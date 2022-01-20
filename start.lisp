@@ -30,14 +30,12 @@ SPDX-License-Identifier: Apache-2.0 |#
        (opts:describe :tagline (cl:format cl:nil "Common Lisp script~%")
                       :usage-of (uiop:argv0) :args "[REST]" :suffix "Change."))
       ((cl:getf options :verbose)
-       (cl:format cl:t "Lisp implementation:  ~A~%"
-                                             (cl:lisp-implementation-type))
-       (cl:format cl:t "Lisp version:         ~A~%"
-                  (cl:lisp-implementation-version)))
+       (cl:format cl:t "Lisp:         ~A~%" (cl:lisp-implementation-type))
+       (cl:format cl:t "Lisp version: ~A~%" (cl:lisp-implementation-version))
+       (cl:format cl:t "ASDF version: ~A~%" (asdf:asdf-version)))
       (cl:t
        (cl:format cl:t "Script full path:     ~A~%" cl:*load-pathname*)
        (cl:format cl:t "Script argument 0:    ~A~%" (uiop:argv0))
-       (cl:format cl:t "ASDF version:         ~A~%" (asdf:asdf-version))
        (cl:format cl:t "Command line options:")
        (cl:dolist (option options) (cl:print option)) (cl:terpri)
        (cl:format cl:t "Remainder:            ~A~%" arguments))))
