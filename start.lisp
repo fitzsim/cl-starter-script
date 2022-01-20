@@ -13,7 +13,6 @@ SPDX-License-Identifier: Apache-2.0 |#
 (asdf:initialize-source-registry ; use Git submodules
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
 (asdf:load-systems :unix-opts :with-user-abort)
-;;; Actual script follows.
 (defpackage #:start) (in-package #:start)
 (opts:define-opts
   (:name :help :description "print this help text"   :short #\h :long "help")
