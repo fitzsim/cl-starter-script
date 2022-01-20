@@ -19,3 +19,6 @@
 [submodule "with-user-abort"]
 	path = with-user-abort
 	url = https://github.com/compufox/with-user-abort.git
+[submodule "unix-opts"]
+	path = unix-opts
+	url = https://github.com/libre-man/unix-opts

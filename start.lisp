@@ -1,85 +1,47 @@
 #| start.lisp --- a single-file self-contained Common Lisp script template
 export __CL_ARGV0="$0"
-type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0"    "$@"
-type clisp >/dev/null 2>&1 && exec clisp          "$0"    "$@"
-type ecl   >/dev/null 2>&1 && exec ecl   --shell  "$0" -- "$@"
+type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
+type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
+type ecl   >/dev/null 2>&1 && exec ecl   --shell  "$0" "$@"
+echo "Install one of (sbcl clisp ecl)."; exit 1
 Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
-;;; Load dependee systems.
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
-(setf *compile-verbose* nil *compile-print* nil *load-verbose* nil)
-(setf *load-pathname* (truename *load-pathname*)) ; for :here
+(setf *compile-verbose* nil *compile-print* nil *load-verbose* nil ; silence
+      *load-pathname* (truename *load-pathname*)) ; for :here
 (require "asdf") ; also loads uiop package
-(unless (uiop:directory-exists-p (merge-pathnames
-				  (uiop:relativize-pathname-directory
-				   (uiop:pathname-directory-pathname
-				    *load-pathname*))
-				  asdf:*user-cache*))
-  (format *error-output* "Compiling, please wait up to 30 seconds...~%"))
-(asdf:initialize-source-registry
+(asdf:initialize-source-registry ; use Git submodules
  '(:source-registry :ignore-inherited-configuration (:tree :here)))
-#| On GNU CLISP, suppress C compiler warning output during CLON load.
-The combination of CLISP and ASDF provide no global way of disabling
-the stream associated with this output.  To test, remove the ASDF
-cache at ~/.cache/common-lisp/clisp-* then run:
-"clisp -q -q -i start.lisp -x '(start::main)'". |#
-#+clisp
-(uiop:with-null-output (*error-output*)
-  (asdf:load-system :cffi-toolchain))
-#+clisp
-(uiop:with-null-output (*error-output*)
-  (defun cffi-toolchain:invoke (command &rest args)
-    (when (pathnamep command)
-      (setf command (native-namestring command))
-      #+os-unix
-      (unless (absolute-pathname-p command)
-	(setf command (strcat "./" command))))
-    (let ((cmd (cons command (mapcar 'program-argument args))))
-      (safe-format! *debug-io* "; ~A~%" (escape-command cmd))
-      (run-program cmd :output :interactive)))) ; no :error-output :interactive
-(uiop:with-null-output (*debug-io*) ; silence cffi-toolchain:invoke
-  (uiop:with-null-output (*terminal-io*) ; silence clisp
-    (uiop:with-null-output (*error-output*) ; silence ecl
-      (ignore-errors ; if missing cc
-       (asdf:load-system :net.didierverna.clon))))) ; FIXME: clisp cc stderr
-(net.didierverna.clon:nickname-package)
-(asdf:load-system :with-user-abort)
+(asdf:load-systems :unix-opts :with-user-abort)
 ;;; Actual script follows.
-(defpackage #:start)
-(in-package #:start)
-(clon:defsynopsis (:postfix "FILES...")
-  (text :contents "Template utility script.")
-  (group (:header "Flags:")
-	 (flag :short-name "h" :long-name "help"
-	       :description "display this help text and exit")
-	 (flag :short-name "e" :long-name "example"
-	       :description "an example flag option"))
-  (group (:header "Options:")
-	 (path :short-name "f" :long-name "file"
-	       :description "an example FILE option"
-	       :argument-name "FILE" :type :file :default-value #p"file.txt")))
+(defpackage #:start) (in-package #:start)
+(opts:define-opts
+  (:name :help :description "print this help text"   :short #\h :long "help")
+  (:name :verbose :description "verbose output"      :short #\v :long "verbose")
+  (:name :level :description "run at LEVEL"          :short #\l :long "level"
+   :arg-parser #'cl:parse-integer :meta-var "LEVEL")
+  (:name :output :description "output to FILE"       :short #\o :long "output"
+   :arg-parser #'cl:identity :meta-var "FILE"))
 (cl:defun main ()
   "Entry point for the script."
-  (clon:make-context :progname :environment)
-  (cl:cond ((clon:getopt :short-name "h")
-	    (clon:help))
-	   (cl:t
-	    (cl:format cl:t "Script full path:     ~A~%" cl:*load-pathname*)
-	    (cl:format cl:t "Script argument 0:    ~A~%" (uiop:argv0))
-	    (cl:format cl:t "ASDF version:         ~A~%" (asdf:asdf-version))
-	    (cl:format cl:t "Program name:         ~A~%" (clon:progname))
-	    (cl:format cl:t "Command line options:")
-	    (clon:do-cmdline-options (option name value source)
-	      (cl:print (cl:list option name value source)))
-	    (cl:terpri)
-	    (cl:format cl:t "Remainder:            ~A~%" (clon:remainder))
-	    (cl:format cl:t "Lisp implementation:  ~A~%"
-		       (cl:lisp-implementation-type))
-	    (cl:format cl:t "Lisp version:         ~A~%"
-		       (cl:lisp-implementation-version))))
-  (cl:when (uiop:argv0) (uiop:quit)))
-(cl:when (uiop:argv0)
-  (cl:handler-case
-      (with-user-abort:with-user-abort
-	(main))
-    (with-user-abort:user-abort () (uiop:quit 1))))
+  (cl:multiple-value-bind (options arguments)
+      (opts:get-opts)
+    (cl:cond
+      ((cl:getf options :help)
+       (opts:describe ;; :tagline (cl:format cl:nil "Common Lisp script~%")
+                      :usage-of "./start.lisp" :args "[REST]"))
+      ((cl:getf options :verbose)
+       (cl:format cl:t "Lisp implementation:  ~A~%"
+                                             (cl:lisp-implementation-type))
+       (cl:format cl:t "Lisp version:         ~A~%"
+                  (cl:lisp-implementation-version)))
+      (cl:t
+       (cl:format cl:t "Script full path:     ~A~%" cl:*load-pathname*)
+       (cl:format cl:t "Script argument 0:    ~A~%" (uiop:argv0))
+       (cl:format cl:t "ASDF version:         ~A~%" (asdf:asdf-version))
+       (cl:format cl:t "Command line options:")
+       (cl:dolist (option options) (cl:print option)) (cl:terpri)
+       (cl:format cl:t "Remainder:            ~A~%" arguments)
+       (cl:when (uiop:argv0) (uiop:quit))))))
+(cl:when (uiop:argv0) (cl:handler-case (with-user-abort:with-user-abort (main))
+                        (with-user-abort:user-abort () (uiop:quit 1))))
