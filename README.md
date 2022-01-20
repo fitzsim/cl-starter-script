@@ -9,7 +9,7 @@ Then, as a normal user, run:
 	git clone -q --recursive https://git.sr.ht/~fitzsim/cl-starter-script && \
 	./cl-starter-script/start.lisp --help
 
-After the Git clone finishes, you should see:
+and you should see:
 
 	Compiling, please wait up to 30 seconds...
 	Usage: start [-he] [OPTIONS] FILES...
@@ -65,20 +65,20 @@ from first removing the implementation's ASDF cache, for example,
   <tr>
     <td>SBCL</td>
     <td>2.1.9.debian</td>
-    <td>2.857</td>
-    <td>0.862</td>
+    <td>0.770</td>
+    <td>0.571</td>
   </tr>
   <tr>
     <td>GNU CLISP</td>
     <td>2.49.93+ (2018-02-18)</td>
-    <td>10.680</td>
-    <td>4.150</td>
+    <td>1.083</td>
+    <td>0.865</td>
   </tr>
   <tr>
     <td>ECL</td>
     <td>21.2.1</td>
-    <td>23.219</td>
-    <td>3.042</td>
+    <td>3.235</td>
+    <td>1.256</td>
   </tr>
 </table>
 
