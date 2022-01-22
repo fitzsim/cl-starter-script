@@ -11,16 +11,17 @@ Then, as a normal user, run:
 
 and you should see:
 
-	Compiling, please wait up to 30 seconds...
-	Usage: start [-he] [OPTIONS] FILES...
-
-	Template utility script.
-	Flags:
-	  -h, --help                  display this help text and exit
-	  -e, --example               an example flag option
-	Options:
-	  -f, --file=FILE             an example FILE option
-	                              Default: file.txt
+	Usage: ./cl-starter-script/start.lisp [-h|--help] [-v|--verbose]
+	                                      [-l|--level LEVEL] [-o|--output FILE] [REST]
+	Common Lisp script
+	
+	Available options:
+	  -h, --help        print this help text
+	  -v, --verbose     verbose output
+	  -l, --level LEVEL run at LEVEL
+	  -o, --output FILE output to FILE
+	
+	Change.
 
 If that doesn't work, complain by filing a
 [todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
