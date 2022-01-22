@@ -38,7 +38,7 @@ Features:
 
 * Loadable in a REPL.
 
-* SBCL and GNU CLISP support, so far.
+* SBCL, GNU CLISP and ECL support, so far.
 
 * Self-contained within the checkout directory.
 
@@ -93,7 +93,7 @@ Check out [cl-launch](https://github.com/fare/cl-launch) which
 unfortunately is not widely packaged by distros.
 
 Also look at [Roswell](https://github.com/roswell/roswell) as another
-potential basis for Common Lisp scripting, and lots more.
+potential basis for Common Lisp scripting and lots more.
 
 # Learning resources
 
