@@ -52,9 +52,9 @@ SPDX-License-Identifier: Apache-2.0 |#
          (gethash lisp outputs)
          (with-output-to-string (out)
            (setf (gethash lisp times)
-                 (time (uiop:run-program
-                        (concatenate 'string "./start.lisp" options)
-                        :output out :error-output out))))))
+                 (uiop:run-program
+                  (concatenate 'string "./start.lisp" options)
+                  :output out :error-output out)))))
       (loop for lisp1 in lisps
             do (loop for lisp2 in (delete lisp1 (copy-list lisps))
                      do (when (not (equal (gethash lisp1 outputs)

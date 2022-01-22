@@ -52,8 +52,12 @@ Features:
 # Supported Lisp Implementations as of January 2022
 
 These are tried in order, from fastest to slowest.  A cold run results
-from first removing the implementation's ASDF cache, for example,
-~/.cache/common-lisp/clisp-[...].
+from first removing the implementation's ASDF cache, for example by
+removing `~/.cache/common-lisp/`, then running:
+
+    ./start.lisp --verbose
+
+A warm is the same command after everything is cached.
 
 <table>
   <tr>
@@ -65,20 +69,20 @@ from first removing the implementation's ASDF cache, for example,
   <tr>
     <td>SBCL</td>
     <td>2.1.9.debian</td>
-    <td>0.770</td>
-    <td>0.571</td>
+    <td>0.579</td>
+    <td>0.579</td>
   </tr>
   <tr>
     <td>GNU CLISP</td>
     <td>2.49.93+ (2018-02-18)</td>
-    <td>1.083</td>
-    <td>0.865</td>
+    <td>1.159</td>
+    <td>0.871</td>
   </tr>
   <tr>
     <td>ECL</td>
     <td>21.2.1</td>
-    <td>3.235</td>
-    <td>1.256</td>
+    <td>3.195</td>
+    <td>1.207</td>
   </tr>
 </table>
 
