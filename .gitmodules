@@ -1,21 +1,3 @@
-[submodule "named-readtables"]
-	path = named-readtables
-	url = https://github.com/melisgl/named-readtables
-[submodule "clon"]
-	path = clon
-	url = https://github.com/didierverna/clon
-[submodule "trivial-features"]
-	path = trivial-features
-	url = https://github.com/trivial-features/trivial-features.git
-[submodule "babel"]
-	path = babel
-	url = https://github.com/cl-babel/babel.git
-[submodule "alexandria"]
-	path = alexandria
-	url = https://gitlab.common-lisp.net/alexandria/alexandria.git
-[submodule "cffi"]
-	path = cffi
-	url = https://github.com/cffi/cffi.git
 [submodule "with-user-abort"]
 	path = with-user-abort
 	url = https://github.com/compufox/with-user-abort.git
