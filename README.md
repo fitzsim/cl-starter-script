@@ -45,7 +45,7 @@ Features:
 * Runnable without an Internet connection after the first Git clone.
 
 * Command line option parsing support provided by
-  [CLON](https://github.com/didierverna/clon).
+  [unix-opts](https://github.com/libre-man/unix-opts).
 
 * Experiment with no :use at all, not even :common-lisp.  Interesting,
   but in practice :use :cl and remove cl: prefixes.
@@ -56,7 +56,7 @@ These are tried in order, from fastest to slowest.  A cold run results
 from first removing the implementation's ASDF cache, for example by
 removing `~/.cache/common-lisp/`, then running:
 
-    ./start.lisp --verbose
+    ./start.lisp
 
 A warm is the same command after everything is cached.
 
