@@ -4,7 +4,7 @@ type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
 type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
 type ecl   >/dev/null 2>&1 && exec ecl   --shell  "$0" "$@"
 echo "Install one of (sbcl clisp ecl)."; exit 1
-Copyright 2021 Thomas Fitzsimmons
+Copyright 2021-2022 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
 (setf *compile-verbose* nil *compile-print* nil *load-verbose* nil) ; silence
