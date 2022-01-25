@@ -35,7 +35,7 @@ SPDX-License-Identifier: Apache-2.0 |#
 (defun main () "Entry point for the script."
   (let ((lisps '("sbcl" "clisp" "ecl"))
         (outputs (make-hash-table :test #'equal))
-        (optionss '(" --help" " -l 3" " -l 3 --output file.txt"))
+        (optionss '(" --help" " a" " -l 3" " -l 3 --output file.txt a b"))
         (times (make-hash-table :test #'equal)))
     (dolist (lisp lisps)
       (format t "Test ~a~a~%" lisp " --verbose")
