@@ -7,11 +7,10 @@ echo "Install one of (sbcl clisp ecl)."; exit 1
 Copyright 2021 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
-(setf *compile-verbose* nil *compile-print* nil *load-verbose* nil ; silence
-      *load-pathname* (truename *load-pathname*)) ; for :here
-(require "asdf") ; also loads uiop package
-(asdf:initialize-source-registry ; use Git submodules
- '(:source-registry :ignore-inherited-configuration (:tree :here)))
+(setf *compile-verbose* nil *compile-print* nil *load-verbose* nil) ; silence
+(require "asdf") (setf *load-pathname* (truename *load-pathname*)) ; for :here
+(let ((dot '(:source-registry :ignore-inherited-configuration (:tree :here))))
+  (asdf:initialize-source-registry dot)) ; use Git submodules
 (asdf:load-systems :unix-opts :with-user-abort)
 (defpackage #:start) (in-package #:start)
 (opts:define-opts
