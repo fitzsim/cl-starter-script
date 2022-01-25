@@ -14,29 +14,27 @@ SPDX-License-Identifier: Apache-2.0 |#
 (asdf:load-systems :unix-opts :with-user-abort)
 (defpackage #:start) (in-package #:start)
 (opts:define-opts
-  (:name :help :description "print this help text"   :short #\h :long "help")
-  (:name :verbose :description "verbose output"      :short #\v :long "verbose")
-  (:name :level :description "run at LEVEL"          :short #\l :long "level"
+  (:name :help :description "print this help text" :short #\h :long "help")
+  (:name :verbose :description "verbose output" :short #\v :long "verbose")
+  (:name :level :description "run at LEVEL" :short #\l :long "level"
    :arg-parser #'cl:parse-integer :meta-var "LEVEL")
-  (:name :output :description "output to FILE"       :short #\o :long "output"
+  (:name :output :description "output to FILE" :short #\o :long "output"
    :arg-parser #'cl:identity :meta-var "FILE"))
 (cl:defun main () "Entry point for the script."
-  (cl:multiple-value-bind (options arguments)
-      (opts:get-opts)
+  (cl:multiple-value-bind (options arguments) (opts:get-opts)
     (cl:cond
       ((cl:getf options :help)
        (opts:describe :tagline (cl:format cl:nil "Common Lisp script~%")
                       :usage-of (uiop:argv0) :args "[REST]" :suffix "Change."))
       ((cl:getf options :verbose)
-       (cl:format cl:t "Lisp:         ~A~%" (cl:lisp-implementation-type))
+       (cl:format cl:t "Lisp:~14T~A~%" (cl:lisp-implementation-type))
        (cl:format cl:t "Lisp version: ~A~%" (cl:lisp-implementation-version))
        (cl:format cl:t "ASDF version: ~A~%" (asdf:asdf-version)))
-      (cl:t
-       (cl:format cl:t "Script full path:     ~A~%" cl:*load-pathname*)
-       (cl:format cl:t "Script argument 0:    ~A~%" (uiop:argv0))
-       (cl:format cl:t "Command line options:")
-       (cl:dolist (option options) (cl:print option)) (cl:terpri)
-       (cl:format cl:t "Remainder:            ~A~%" arguments))))
+      (cl:t (cl:format cl:t "Script full path:~22T~A~%" cl:*load-pathname*)
+            (cl:format cl:t "Script argument 0:~22T~A~%" (uiop:argv0))
+            (cl:format cl:t "Command line options:")
+            (cl:dolist (option options) (cl:print option)) (cl:terpri)
+            (cl:format cl:t "Remainder:~22T~A~%" arguments))))
   (cl:when (uiop:argv0) (uiop:quit)))
 (cl:when (uiop:argv0) (cl:handler-case (with-user-abort:with-user-abort (main))
                         (with-user-abort:user-abort () (uiop:quit 1))))
