@@ -28,7 +28,8 @@ SPDX-License-Identifier: Apache-2.0 |#
     (cl:cond
       ((cl:getf options :help)
        (opts:describe :tagline (cl:format cl:nil "Common Lisp script~%")
-                      :usage-of (uiop:argv0) :args "[REST]" :suffix "Change."))
+                      :usage-of (cl:file-namestring (uiop:argv0))
+                      :args "[REST]" :suffix "Change."))
       ((cl:getf options :verbose)
        (cl:format cl:t "Lisp:~14T~A~%" (cl:lisp-implementation-type))
        (cl:format cl:t "Lisp version: ~A~%" (cl:lisp-implementation-version))
