@@ -1,4 +1,4 @@
-#| start.lisp --- a single-file self-contained Common Lisp script template
+#| A single-file self-contained Common Lisp script template.
 export __CL_ARGV0="$0"
 type sbcl  >/dev/null 2>&1 && exec sbcl  --script "$0" "$@"
 type clisp >/dev/null 2>&1 && exec clisp          "$0" "$@"
@@ -8,12 +8,14 @@ Copyright 2021-2022 Thomas Fitzsimmons
 SPDX-License-Identifier: Apache-2.0 |#
 (cl:in-package #:cl-user) ; for systems that assume :cl is :use'd at load time
 (setf *compile-verbose* nil *compile-print* nil *load-verbose* nil) ; silence
+(defconstant *program-name* (pathname-name *load-truename*))
+(defconstant *program-package* (string-upcase *program-name*))
 (require "asdf") (setf *load-pathname* (truename *load-pathname*)) ; for :here
 (let ((dot '(:source-registry :ignore-inherited-configuration (:tree :here))))
   (asdf:initialize-source-registry dot)) ; use Git submodules
 (with-output-to-string (*standard-output*) ; suppress warnings
   (asdf:load-systems :unix-opts :with-user-abort))
-(defpackage #:start) (in-package #:start)
+(eval `(defpackage ,*program-package*)) (eval `(in-package ,*program-package*))
 (opts:define-opts
   (:name :help :description "print this help text" :short #\h :long "help")
   (:name :verbose :description "verbose output" :short #\v :long "verbose")
