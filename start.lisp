@@ -11,7 +11,8 @@ SPDX-License-Identifier: Apache-2.0 |#
 (require "asdf") (setf *load-pathname* (truename *load-pathname*)) ; for :here
 (let ((dot '(:source-registry :ignore-inherited-configuration (:tree :here))))
   (asdf:initialize-source-registry dot)) ; use Git submodules
-(asdf:load-systems :unix-opts :with-user-abort)
+(with-output-to-string (*standard-output*) ; suppress warnings
+  (asdf:load-systems :unix-opts :with-user-abort))
 (defpackage #:start) (in-package #:start)
 (opts:define-opts
   (:name :help :description "print this help text" :short #\h :long "help")
