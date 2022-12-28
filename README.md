@@ -11,20 +11,47 @@ Then, as a normal user, run:
 
 and you should see:
 
-	Usage: ./cl-starter-script/start.lisp [-h|--help] [-v|--verbose]
-	                                      [-l|--level LEVEL] [-o|--output FILE] [REST]
+	Usage: start.lisp [-h|--help] [-v|--verbose] [-l|--level LEVEL]
+	                  [-o|--output FILE] [REST]
 	Common Lisp script
-	
+
 	Available options:
 	  -h, --help        print this help text
 	  -v, --verbose     verbose output
 	  -l, --level LEVEL run at LEVEL
 	  -o, --output FILE output to FILE
-	
+
 	Change.
 
-If that doesn't work, complain by filing a
+You can compile the script:
+
+    cd ./cl-starter-script
+    ./compile.lisp
+    ./start --help
+
+and you should see:
+
+    Usage: start [-h|--help] [-v|--verbose] [-l|--level LEVEL] [-o|--output FILE] [REST]
+	Common Lisp script
+
+	Available options:
+	  -h, --help        print this help text
+	  -v, --verbose     verbose output
+	  -l, --level LEVEL run at LEVEL
+	  -o, --output FILE output to FILE
+
+	Change.
+
+If anything doesn't work, complain by filing a
 [todo](https://todo.sr.ht/~fitzsim/cl-starter-script).
+
+# Renaming
+
+The package name is derived from the file name.  To start customizing
+just rename the scipt:
+
+	mv start.lisp myscript.lisp
+	ln -sf myscript.lisp compile.lisp
 
 # It's a start...
 
@@ -40,7 +67,9 @@ Features:
 
 * SBCL, GNU CLISP and ECL support, so far.
 
-* Self-contained within the checkout directory.
+* Compilation support for SBCL and GNU CLISP.
+
+* Self-contained within the recursive checkout directory.
 
 * Runnable without an Internet connection after the first Git clone.
 

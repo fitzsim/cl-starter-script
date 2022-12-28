@@ -40,5 +40,16 @@ SPDX-License-Identifier: Apache-2.0 |#
               (cl:dolist (option options) (cl:print option)) (cl:terpri)
               (cl:format cl:t "Remainder:~22T~A~%" arguments))))
     (cl:when name (uiop:quit))))
+(cl:let ((name (uiop:argv0)) (out cl-user::*program-name*)
+         (package cl-user::*program-package*))
+  (cl:when (cl:and name (cl:equal (cl:file-namestring name) "compile.lisp"))
+    (cl:setf uiop:*image-entry-point* (cl:intern "MAIN" package))
+    (uiop:dump-image out :executable cl:t) ; not supported on ECL.
+    (uiop:quit)))
 (cl:when (uiop:argv0) (cl:handler-case (with-user-abort:with-user-abort (main))
                         (with-user-abort:user-abort () (uiop:quit 1))))
+;;; Local Variables:
+;;; mode: Lisp
+;;; syntax: ANSI-Common-Lisp
+;;; compile-command: "./compile.lisp"
+;;; End:

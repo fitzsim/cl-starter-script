@@ -18,13 +18,13 @@ SPDX-License-Identifier: Apache-2.0 |#
   (let ((lines (uiop:read-file-lines "start.lisp")))
     (with-open-file  (out "start.lisp" :direction :io :if-exists :supersede)
       (loop for line in lines do
-        (cond ((eq 0 (search (concatenate 'string "type ") line))
+        (cond ((eq 0 (search "type " line))
                (if lisp
                    (if (eq 0 (search (concatenate 'string "type " lisp) line))
                        (write-line line out) ; leave unnuked
                        (write-line (concatenate 'string "#" line) out)) ;; nuke
                    (write-line line out)))
-              ((eq 0 (search (concatenate 'string "#type ") line))
+              ((eq 0 (search "#type " line))
                (if lisp
                    (if (eq 0 (search (concatenate 'string "#type " lisp) line))
                        (write-line (subseq line 1) out) ; unnuke
@@ -32,28 +32,41 @@ SPDX-License-Identifier: Apache-2.0 |#
                    (write-line (subseq line 1) out))) ; unnuke all
               (t
                (write-line line out)))))))
-(defun main () "Entry point for the script."
-  (let ((lisps '("sbcl" "clisp" "ecl"))
+(defun run-compile ()
+  (uiop:run-program
+   (concatenate 'string "./compile.lisp")
+   :output *standard-output*
+   :error-output *standard-output*))
+(defun compare-lisps (&optional binary)
+  (let ((lisps (if binary
+                   '("sbcl" "clisp")
+                   '("sbcl" "clisp" "ecl")))
         (outputs (make-hash-table :test #'equal))
         (optionss '(" --help" " a" " -l 3" " -l 3 --output file.txt a b"))
         (times (make-hash-table :test #'equal)))
     (dolist (lisp lisps)
       (format t "Test ~a~a~%" lisp " --verbose")
       (unnuke lisp)
+      (when binary
+        (run-compile))
       (time (uiop:run-program
-             (concatenate 'string "./start.lisp --verbose")
+             (concatenate 'string
+                          (if binary "./start" "./start.lisp") " --verbose")
              :output *standard-output*
              :error-output *standard-output*)))
     (dolist (options optionss)
       (dolist (lisp lisps)
         (format t "Test ~a~a~%" lisp options)
         (unnuke lisp)
+        (when binary
+          (run-compile))
         (setf
          (gethash lisp outputs)
          (with-output-to-string (out)
            (setf (gethash lisp times)
                  (uiop:run-program
-                  (concatenate 'string "./start.lisp" options)
+                  (concatenate 'string
+                               (if binary "./start" "./start.lisp") options)
                   :output out :error-output out)))))
       (loop for lisp1 in lisps
             do (loop for lisp2 in (delete lisp1 (copy-list lisps))
@@ -65,7 +78,10 @@ SPDX-License-Identifier: Apache-2.0 |#
                                   lisp2 (gethash lisp2 outputs))
                           (unnuke)
                           (uiop:quit 1)))
-               (format t "Pass ~a~a~%" lisp1 options))))
+               (format t "Pass ~a~a~%" lisp1 options)))))
+(defun main () "Entry point for the script."
+  (compare-lisps)
+  (compare-lisps t)
   (unnuke)
   (when (uiop:argv0) (uiop:quit)))
 (when (uiop:argv0) (handler-case (with-user-abort:with-user-abort (main))
